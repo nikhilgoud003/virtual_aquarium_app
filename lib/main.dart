@@ -224,3 +224,32 @@ class MarineCreature {
     required this.dy,
   });
 }
+
+class SeaLifePainter extends CustomPainter {
+  final Color color;
+
+  SeaLifePainter({required this.color});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()..color = color;
+    final path = Path();
+
+    path.moveTo(0, size.height / 2);
+    path.quadraticBezierTo(size.width * 0.7, 0, size.width, size.height / 2);
+    path.quadraticBezierTo(size.width * 0.7, size.height, 0, size.height / 2);
+
+    path.moveTo(size.width, size.height / 2);
+    path.lineTo(size.width + size.width * 0.3, size.height * 0.2);
+    path.lineTo(size.width + size.width * 0.3, size.height * 0.8);
+    path.close();
+
+    canvas.drawPath(path, paint);
+
+    canvas.drawCircle(Offset(size.width * 0.6, size.height * 0.4),
+        size.width * 0.1, Paint()..color = Colors.black);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
